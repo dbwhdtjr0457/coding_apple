@@ -1,55 +1,46 @@
-function 함수(x: number): number {
-  return x * 2;
+// Narrowing, Assertion
+
+function 내함수(x: number | string) {
+  // Narrowing
+  if (typeof x === "string") return x + "1";
+  else return x + 1;
 }
 
-함수(6);
+console.log(내함수("123"));
+console.log(내함수(123));
 
-// 혹은..
-function 함수2(x: number): void {
-  console.log(x * 2);
+function 내함수2(x: number | string) {
+  let array: number[] = [];
+  if (typeof x === "number") array[0] = x;
+
+  // Narrowing으로 판전해주는 문법들:
+  // typeof 변수
+  // 속성명 in 오브젝트자료
+  // 인스턴스 instanceof 부모
+  // -> 그냥 현재 변수의 타입이 뭔지 특정지을 수 있기만 하면 다 인정해줌
 }
 
-함수2(3);
+// assertion 문법 -> 타입 덮어쓰기
+function 내함수3(x: number | string) {
+  let array: number[] = [];
+  array[0] = x as number; // number로 assertion
+}
 
-// 만약 함수에 파라미터가 들어가야 된다고 적었다면
-// 함수를 호출할 때는 무조건 파라미터를 입력해야 함.
-// 함수2() -> 에러!
-// 들어오거나 안 들어오면 함수(x?: number)처럼 하면 됨
-// 함수(x?: number) == 함수(x: number | undefined)
-
-// 퀴즈
-// function 함수3(x: number | string): void {
-//   console.log(x + 3);
-// }
-
-// 함수3(2);
-// 에러가 나는 이유?
-// string | number는 string도 아니고 number도 아니기 때문에!
-// 고치려면? narrowing 쓰면 됨
+// as 문법의 용도:
+// 1. narrowing
+// 즉, 타입을 "변경"하는데에 사용하면 안 됨.
+// 2. 무슨 타입이 들어올 지 100% 확실할 때 사용.
+// 내함수3("123") 이런 거 들어올 경우가 있으면 사용하지 말라는 뜻.
 
 // 숙제
-function Func(name?: string): void {
-  if (name) {
-    console.log("안녕하세요" + name);
-  } else {
-    console.log("이름이 없습니다.");
-  }
+function cleaner(array: (string | number)[]): number[] {
+  return array.map((item: string | number) => {
+    if (typeof item === "string") {
+      return Number(item);
+    } else {
+      return item;
+    }
+  });
 }
 
-function countfunc(num: string | number): number {
-  return num.toString().length;
-}
-
-function marriageFunc(
-  income: number,
-  house: boolean,
-  score: string
-): string | void {
-  let result = 0;
-  result += income;
-  if (house) result += 500;
-  if (score === "상") result += 100;
-  if (result >= 600) return "결혼가능";
-}
-
-console.log(marriageFunc(700, false, "중"));
+console.log(cleaner(["1", 2, "3"]));
