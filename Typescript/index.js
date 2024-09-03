@@ -19,3 +19,27 @@ function 함수2(x) {
 // 함수3(2);
 // 에러가 나는 이유?
 // string | number는 string도 아니고 number도 아니기 때문에!
+// 고치려면? narrowing 쓰면 됨
+// 숙제
+function Func(name) {
+    if (name) {
+        console.log("안녕하세요" + name);
+    }
+    else {
+        console.log("이름이 없습니다.");
+    }
+}
+function countfunc(num) {
+    return num.toString().length;
+}
+function marriageFunc(income, house, score) {
+    var result = 0;
+    result += income;
+    if (house)
+        result += 500;
+    if (score === "상")
+        result += 100;
+    if (result >= 600)
+        return "결혼가능";
+}
+console.log(marriageFunc(700, false, "중"));
