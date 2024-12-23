@@ -1,46 +1,38 @@
-// Narrowing, Assertion
+let animal: string | number | undefined;
+// 굉장히 길다;;
 
-function 내함수(x: number | string) {
-  // Narrowing
-  if (typeof x === "string") return x + "1";
-  else return x + 1;
-}
+type Animal = string | number | undefined;
+// -> 미리 정의하고 사용!
 
-console.log(내함수("123"));
-console.log(내함수(123));
+let animal2: Animal = "kim";
+// type alias 활용
 
-function 내함수2(x: number | string) {
-  let array: number[] = [];
-  if (typeof x === "number") array[0] = x;
+type RealAnimal = { name: string; age: number };
+let animal3: RealAnimal = { name: "kim", age: 123 };
+// type 이름은 첫 글자가 대문자인 것이 좋다.
+// + 타입 이름에는 Type 들어가는 게 좋기도 함
 
-  // Narrowing으로 판전해주는 문법들:
-  // typeof 변수
-  // 속성명 in 오브젝트자료
-  // 인스턴스 instanceof 부모
-  // -> 그냥 현재 변수의 타입이 뭔지 특정지을 수 있기만 하면 다 인정해줌
-}
+const 출생지역 = { region: "seoul" };
+// const -> 재할당을 막아주는 놈이지, 객체 안의 내용 변경을 막는 놈이 아니다.
+출생지역.region = "busan";
+console.log(출생지역);
+// {region: 'busan'}
+// 하지만 타입스크립트로 막을 수 있다.
 
-// assertion 문법 -> 타입 덮어쓰기
-function 내함수3(x: number | string) {
-  let array: number[] = [];
-  array[0] = x as number; // number로 assertion
-}
+type Girlfriend = {
+  readonly name: string; // 읽기 전용으로 바꿔버리기
+};
+const 여친: Girlfriend = {
+  name: "엠버",
+};
+// 여친.name = "수지"; // 에러
 
-// as 문법의 용도:
-// 1. narrowing
-// 즉, 타입을 "변경"하는데에 사용하면 안 됨.
-// 2. 무슨 타입이 들어올 지 100% 확실할 때 사용.
-// 내함수3("123") 이런 거 들어올 경우가 있으면 사용하지 말라는 뜻.
+type PositionX = { x: number };
+type PositionY = { y: number };
 
-// 숙제
-function cleaner(array: (string | number)[]): number[] {
-  return array.map((item: string | number) => {
-    if (typeof item === "string") {
-      return Number(item);
-    } else {
-      return item;
-    }
-  });
-}
+type NewType = PositionX & PositionY;
 
-console.log(cleaner(["1", 2, "3"]));
+let position: NewType = { x: 10, y: 20 };
+
+// type 재정의는 불가능!
+// type Animal = boolean -> 불가능!!! 이미 위에서 정의했기 때문!
