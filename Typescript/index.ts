@@ -1,43 +1,35 @@
-// 함수 타입 전체를 type으로 alias만들기
+let 제목 = document.querySelector("#title");
 
-type funcType = (a: string) => number;
+if (제목?.innerHTML) 제목.innerHTML = "반가워요";
+// or
+if (제목 instanceof Element) {
+  제목.innerHTML = "반가워요";
+}
+// or
+// let 제목 = document.querySelector("#title") as Element;
+// 제목.innerHTML = "반가워요";
+// -> 위험하다. 비상 시에 사용하자..
 
-// 이렇게 하면 함수 만들 때 타입 지정 직접 안 해도 된다.
+let 링크 = document.querySelector(".link");
 
-let 함수: funcType = function (a) {
-  return 10;
-};
+// if (링크 instanceof Element) 링크.href = "https://kakao.com"; => 에러
+// 이유? a 태그의 경우 HTMLAnchorElement로 해야됨.
 
-console.log(함수("hello"));
+if (링크 instanceof HTMLAnchorElement) 링크.href = "https://kakao.com";
 
-// object 내 함수도 타입 지정 가능
+let button = document.querySelector(".button");
 
-type Member = {
-  name: string;
-  plusOne: (a: number) => number;
-  changeName: () => void;
-};
+// if (button instanceof HTMLButtonElement)
+//   button.onclick = function () {
+//     location.href = "https://kakao.com";
+//   };
 
-let 회원정보: Member = {
-  name: "kim",
-  plusOne(a) {
-    return a + 1;
-  },
-  changeName: () => {},
-};
+//or
 
-회원정보.plusOne(10);
+if (button instanceof HTMLButtonElement)
+  button.addEventListener("click", (e) => {
+    window.location.href = "https://kakao.com";
+  });
 
-// 숙제
-type cutZeroFunction = (s: string) => string;
-type removeDashFunction = (s: string) => number;
-
-let cutZero: cutZeroFunction = function (x) {
-  let result = x.replace(/^0+/, "");
-  return result;
-};
-
-let removeDash: removeDashFunction = function (x) {
-  let result = x.replace(/-/g, "");
-  return parseFloat(result);
-};
+// or
+button?.addEventListener("click", () => {});

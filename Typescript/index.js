@@ -1,22 +1,28 @@
-// 함수 타입 전체를 type으로 alias만들기
-// 이렇게 하면 함수 만들 때 타입 지정 직접 안 해도 된다.
-var 함수 = function (a) {
-    return 10;
-};
-console.log(함수("hello"));
-var 회원정보 = {
-    name: "kim",
-    plusOne: function (a) {
-        return a + 1;
-    },
-    changeName: function () { },
-};
-회원정보.plusOne(10);
-var cutZero = function (x) {
-    var result = x.replace(/^0+/, "");
-    return result;
-};
-var removeDash = function (x) {
-    var result = x.replace(/-/g, "");
-    return parseFloat(result);
-};
+var 제목 = document.querySelector("#title");
+if (제목 === null || 제목 === void 0 ? void 0 : 제목.innerHTML)
+    제목.innerHTML = "반가워요";
+// or
+if (제목 instanceof Element) {
+    제목.innerHTML = "반가워요";
+}
+// or
+// let 제목 = document.querySelector("#title") as Element;
+// 제목.innerHTML = "반가워요";
+// -> 위험하다. 비상 시에 사용하자..
+var 링크 = document.querySelector(".link");
+// if (링크 instanceof Element) 링크.href = "https://kakao.com"; => 에러
+// 이유? a 태그의 경우 HTMLAnchorElement로 해야됨.
+if (링크 instanceof HTMLAnchorElement)
+    링크.href = "https://kakao.com";
+var button = document.querySelector(".button");
+// if (button instanceof HTMLButtonElement)
+//   button.onclick = function () {
+//     location.href = "https://kakao.com";
+//   };
+//or
+if (button instanceof HTMLButtonElement)
+    button.addEventListener("click", function (e) {
+        window.location.href = "https://kakao.com";
+    });
+// or
+button === null || button === void 0 ? void 0 : button.addEventListener("click", function () { });
