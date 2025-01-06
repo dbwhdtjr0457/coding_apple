@@ -1,28 +1,10 @@
-var 제목 = document.querySelector("#title");
-if (제목 === null || 제목 === void 0 ? void 0 : 제목.innerHTML)
-    제목.innerHTML = "반가워요";
-// or
-if (제목 instanceof Element) {
-    제목.innerHTML = "반가워요";
-}
-// or
-// let 제목 = document.querySelector("#title") as Element;
-// 제목.innerHTML = "반가워요";
-// -> 위험하다. 비상 시에 사용하자..
-var 링크 = document.querySelector(".link");
-// if (링크 instanceof Element) 링크.href = "https://kakao.com"; => 에러
-// 이유? a 태그의 경우 HTMLAnchorElement로 해야됨.
-if (링크 instanceof HTMLAnchorElement)
-    링크.href = "https://kakao.com";
-var button = document.querySelector(".button");
-// if (button instanceof HTMLButtonElement)
-//   button.onclick = function () {
-//     location.href = "https://kakao.com";
-//   };
-//or
-if (button instanceof HTMLButtonElement)
-    button.addEventListener("click", function (e) {
-        window.location.href = "https://kakao.com";
-    });
-// or
-button === null || button === void 0 ? void 0 : button.addEventListener("click", function () { });
+var 네모 = { color: "red", width: 100 };
+var 학생 = { name: "kim" };
+var 선생 = { name: "kim", age: 20 };
+var person = {
+    name: "kim",
+    age: 20,
+};
+// type은 불가능하다. strict하다.
+// 외부 라이브러리는 interface로 되어있는 경우가 많다. 확장 가능하게 설정하는 것이 가능하기 때문.
+// 즉! 다른 사람이 많이 이용할 것 같으면 interface 사용하자.

@@ -1,35 +1,63 @@
-let 제목 = document.querySelector("#title");
-
-if (제목?.innerHTML) 제목.innerHTML = "반가워요";
-// or
-if (제목 instanceof Element) {
-  제목.innerHTML = "반가워요";
+// type 키워드도 사용 가능하지만, interface도 사용 가능.
+// type Square = { color: string; width: number };
+// let 네모: Square = { color: "red", width: 100 };
+//=>
+interface Square {
+  color: string;
+  width: number;
 }
-// or
-// let 제목 = document.querySelector("#title") as Element;
-// 제목.innerHTML = "반가워요";
-// -> 위험하다. 비상 시에 사용하자..
 
-let 링크 = document.querySelector(".link");
+let 네모: Square = { color: "red", width: 100 };
 
-// if (링크 instanceof Element) 링크.href = "https://kakao.com"; => 에러
-// 이유? a 태그의 경우 HTMLAnchorElement로 해야됨.
+// type과 interface 차이점 배우기 전에...
+// quiz
+// interface Student {
+//   name: string;
+// }
 
-if (링크 instanceof HTMLAnchorElement) 링크.href = "https://kakao.com";
+// interface Teacher {
+//   name: string;
+//   age: number;
+// }
 
-let button = document.querySelector(".button");
+// let 학생: Student = { name: "kim" };
 
-// if (button instanceof HTMLButtonElement)
-//   button.onclick = function () {
-//     location.href = "https://kakao.com";
-//   };
+// let 선생: Teacher = { name: "kim", age: 20 };
 
-//or
+// 하지만... 중복된다!
+// extends를 활용하면 기존 interface에 확장 가능.
 
-if (button instanceof HTMLButtonElement)
-  button.addEventListener("click", (e) => {
-    window.location.href = "https://kakao.com";
-  });
+interface Student {
+  name: string;
+}
 
-// or
-button?.addEventListener("click", () => {});
+interface Teacher extends Student {
+  age: number;
+}
+
+let 학생: Student = { name: "kim" };
+let 선생: Teacher = { name: "kim", age: 20 };
+
+// type도 가능하긴 함
+// type Animal = { name: string };
+// type Cat = { age: number } & Animal;
+
+// type과 interface의 차이?
+// interface는 중복 선언이 가능하다. 자동 extend가 된다.
+
+interface Student {
+  name: string;
+}
+
+interface Student {
+  age: number;
+}
+
+let person: Student = {
+  name: "kim",
+  age: 20,
+};
+
+// type은 불가능하다. strict하다.
+// 외부 라이브러리는 interface로 되어있는 경우가 많다. 확장 가능하게 설정하는 것이 가능하기 때문.
+// 즉! 다른 사람이 많이 이용할 것 같으면 interface 사용하자.
