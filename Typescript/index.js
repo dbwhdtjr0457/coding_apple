@@ -35,7 +35,7 @@ var __extends = (this && this.__extends) || (function () {
 // 만약 private 변수 내용을 바꾸고 싶으면
 // class 내 setter 함수를 작성해서 활용하면 된다. 진짜 객체지향처럼!
 // protected 키워드: extend 되는 class에서 수정 가능. 외부, 혹은 자식에서는 수정 불가능.
-// static 키워드: 부모 클래스에만 부여됨.
+// static 키워드: 부모 클래스에만 부여됨. 즉, 변경하려면 User.z 이걸 바꿔야됨.
 var User = /** @class */ (function () {
     function User() {
         this.x = 10;
