@@ -1,5 +1,6 @@
 import connectDB from "@/util/database";
 import ListNode from "./ListNode";
+import Link from "next/link";
 
 export default async function Home() {
   const client = await connectDB;
@@ -18,6 +19,9 @@ export default async function Home() {
           />
         );
       })}
+      <Link href="/write">
+        <button className="write-button">Write</button>
+      </Link>
     </div>
   );
 }
