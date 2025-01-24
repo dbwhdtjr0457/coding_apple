@@ -15,6 +15,9 @@ export default function ListNode(props: Document) {
         <h4>{props.title}</h4>
         <p>{props.content}</p>
       </Link>
+      <Link href={`/edit/${props._id}`}>
+        <button className="edit-button">수정</button>
+      </Link>
     </div>
   );
 }
