@@ -19,18 +19,21 @@ export default function ListNode(props: Document) {
         <button className="edit-button">수정</button>
       </Link>
       <button
-        onClick={async () => {
-          let deleteFetch = await fetch("/api/post/delete", {
+        onClick={async (e) => {
+          let deleteFetch = await fetch(`/api/post/delete/${props._id}`, {
             method: "DELETE",
-            body: JSON.stringify({ id: props._id }),
-            headers: {
-              "Content-Type": "application/json",
-            },
           });
           if (deleteFetch.status === 200) {
-            window.location.reload();
+            const target = e.target as HTMLButtonElement;
+            if (!target.parentElement) return;
+            target.parentElement.style.opacity = "0";
+            setTimeout(() => {
+              if (!target.parentElement) return;
+              target.parentElement.style.display = "none";
+            }, 500);
           } else {
             alert("삭제에 실패했습니다.");
+            window.location.reload();
           }
         }}
       >

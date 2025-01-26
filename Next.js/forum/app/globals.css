@@ -33,7 +33,8 @@ body {
   margin-bottom: 5px;
   box-shadow: rgb(224, 224, 224) 0px 2px 4px 0px;
   cursor: pointer;
-  transition: box-shadow 0.3s ease;
+  transition: all 0.3s ease;
+  opacity: 1;
 }
 
 .list-item .list-link {
